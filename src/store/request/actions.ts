@@ -1,4 +1,4 @@
-export const DEFAULT_ACTIVITY_TIMEOUT = 30000;
+
 import { ActionCreator } from 'redux';
 import { Thunk } from 'store/types';
 import {
@@ -9,7 +9,7 @@ import {
   ActivityErrorAction,
 } from './types';
 
-
+export const DEFAULT_ACTIVITY_TIMEOUT = 30000;
 const activityAction: ActionCreator<ActivityAction> = (activity: Activity) => ({
   type: ActionTypes.ACTIVITY,
   payload: activity,

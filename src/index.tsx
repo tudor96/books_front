@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { configureStore } from 'store/store';
+import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const App = React.lazy(() => import(/* webpackChunkName: "App" */ './App'));
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={configureStore()}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <App />
+      </Suspense>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
