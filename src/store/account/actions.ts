@@ -1,21 +1,13 @@
-import {
-  BasicUserInformation,
-
-} from 'api/account';
+import { BasicUserInformation } from 'api/account';
 
 import { ActionCreator } from 'redux';
-import { beginActivity, endActivity, setError} from 'store/request';
+import { beginActivity, endActivity, setError } from 'store/request';
 import { Thunk } from 'store/types';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  ActionTypes,
-  ExtendedUserInterface,
-  LoginAction,
-
-} from './types';
+import { ActionTypes, ExtendedUserInterface, LoginAction } from './types';
 
 export const loginAction: ActionCreator<LoginAction> = (
-  data: ExtendedUserInterface,
+  data: ExtendedUserInterface
 ) => ({
   type: ActionTypes.LOGIN,
   payload: {
@@ -36,14 +28,13 @@ export const login = (data: BasicUserInformation): Thunk => async (
         uuid: activityId,
       })
     );
-      const loginInformation = await context.api.data
-        .account()
-        .login(data);
-  
-      dispatch(loginAction({...data, isLogged:true}));
-
-
-   
+    const loginInformation = await context.api.data.account().login(data);
+    dispatch(
+      loginAction({
+        ...data,
+        isLogged: loginInformation === 'connected' ? true : false,
+      })
+    );
   } catch (error) {
     await dispatch(
       setError({
@@ -56,4 +47,3 @@ export const login = (data: BasicUserInformation): Thunk => async (
     await dispatch(endActivity({ uuid: activityId }));
   }
 };
-

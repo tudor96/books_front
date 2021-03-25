@@ -49,6 +49,7 @@ export async function sendGetRequest(
   token?: string,
   config?: AxiosRequestConfig
 ) {
+  console.log(url)
   const conf = {
     timeout: DEFAULT_ACTIVITY_TIMEOUT,
     ...config,
